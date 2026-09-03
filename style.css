@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --bg:        #080808;
+  --surface:   #111111;
+  --surface2:  #181818;
+  --border:    rgba(255,255,255,0.07);
+  --accent:    #c8f060;       /* sharp lime-green accent */
+  --accent2:   #3dffa0;
+  --text:      #f0f0f0;
+  --muted:     #666;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius:    16px;
+  --transition: 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── Noise texture overlay ──────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 20px;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: top 0.35s ease;
+}
+
+.navbar a {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.navbar a:hover {
+  color: var(--accent);
+  background: rgba(200,240,96,0.07);
+}
+
+/* ─── Hero ───────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial glow behind hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(200,240,96,0.12) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(48px, 9vw, 96px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 0.9s ease both;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  animation: fadeUp 0.9s 0.15s ease both;
+}
+
+/* ─── Sections ───────────────────────────────────────────── */
+.section, .about, .Highschool, .Conscription, .University {
+  padding: 100px 20px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.light {
+  background: transparent;
+}
+
+/* section dividers */
+.section + .section,
+.about + .Highschool,
+.Highschool + .Conscription,
+.Conscription + .University {
+  border-top: 1px solid var(--border);
+}
+
+h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+  color: var(--text);
+}
+
+h1:not(.hero h1) {
+  font-family: var(--font-head);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 40px 0 20px;
+  color: var(--accent);
+}
+
+p {
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+/* ─── Cards ──────────────────────────────────────────────── */
+.card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 28px 30px;
+  border-radius: var(--radius);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: rgba(200,240,96,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.card h3 {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.meta {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+/* ─── Skills ─────────────────────────────────────────────── */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skills span {
+  padding: 8px 18px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: #ccc;
+  letter-spacing: 0.03em;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+
+.skills span:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,240,96,0.06);
+}
+
+/* ─── Timeline ───────────────────────────────────────────── */
+.timeline {
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+  position: relative;
+}
+
+.timeline-item {
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.timeline-item span {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.timeline-item h3 {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.timeline-item p {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(200,240,96,0.5);
+}
+
+/* achievements images */
+.achievement img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-top: 12px;
+  border-radius: 10px;
+  opacity: 0.85;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.achievement img:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* ─── Timeline preview (index.html fade) ────────────────── */
+.timeline-preview {
+  position: relative;
+  max-height: 240px;
+  overflow: hidden;
+}
+
+.timeline-preview::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+/* ─── Scroll cards (experience) ──────────────────────────── */
+.container { padding-left: 40px; }
+
+.scroll-container {
+  height: 200px;
+  overflow-x: auto;
+  display: flex;
+  gap: 0;
+  padding: 20px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+}
+
+.scroll-container::-webkit-scrollbar { display: none; }
+
+.scroll-container .card {
+  min-width: 220px;
+  height: 160px;
+  flex-shrink: 0;
+  margin-right: -80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 24px;
+}
+
+.scroll-container .card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+/* ─── Images ─────────────────────────────────────────────── */
+.pic img {
+  width: min(400px, 100%);
+  height: auto;
+  border-radius: var(--radius);
+  margin: 24px 0;
+  border: 1px solid var(--border);
+}
+
+.pic2 {
+  display: flex;
+  justify-content: center;
+}
+
+.pic2 img {
+  width: min(400px, 100%);
+  height: auto;
+  border-radius: var(--radius);
+  margin: 24px 0;
+  border: 1px solid var(--border);
+}
+
+.image-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  margin: 34px 0;
+}
+
+.image-row img {
+  width: 48px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.hover-video {
+  width: min(300px, 100%);
+  height: auto;
+  display: block;
+  margin: 24px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.flags img {
+  width: 145px;
+  height: 120px;
+}
+
+.viet2, .viet3 { display: none; } /* hide mis-positioned images */
+
+/* ─── Reveal animations ──────────────────────────────────── */
+.reveal {
+  opacity: 1;
+  transform: translateY(20px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ─── Contact info ───────────────────────────────────────── */
+.section p a,
+.section p {
+  color: #888;
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+
+/* ─── Fade-text ──────────────────────────────────────────── */
+.fade-text {
+  max-width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  color: #888;
+}
+
+/* ─── CV image link ──────────────────────────────────────── */
+a img[alt="Logo"] {
+  border-radius: 10px;
+  margin: 24px 0 0 40px;
+  opacity: 0.8;
+  transition: opacity var(--transition);
+}
+
+a img[alt="Logo"]:hover { opacity: 1; }
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .navbar { gap: 0; padding: 10px 8px; }
+  .navbar a { padding: 6px 10px; font-size: 11px; }
+  .container { padding-left: 16px; }
+  .section, .about, .Highschool, .Conscription, .University {
+    padding: 60px 20px;
+  }
+}
+
+/* ─── Photo grid (Vietnam section) ──────────────────────── */
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.photo-grid img:hover {
+  transform: scale(1.02);
+  border-color: rgba(200,240,96,0.3);
+}
+
+/* ─── Section for Vietnam ────────────────────────────────── */
+.Vietnam {
+  padding: 100px 20px;
+  max-width: 780px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Achievement images — bigger & styled ───────────────── */
+.achievement img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-top: 14px;
+  border-radius: 12px;
+  background: var(--surface2);
+  padding: 8px;
+  border: 1px solid var(--border);
+  opacity: 0.9;
+  transition: opacity var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.achievement img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  border-color: var(--accent);
+}
