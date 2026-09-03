@@ -399,6 +399,10 @@ p {
 
 .viet2, .viet3 { display: none; } /* hide mis-positioned images */
 
+.viet2-crop {
+  object-position: center 25%;
+}
+
 /* ─── Reveal animations ──────────────────────────────────── */
 .reveal {
   opacity: 1;
