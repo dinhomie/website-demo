@@ -325,10 +325,10 @@ p {
 .scroll-container {
   height: 200px;
   display: flex;
-  gap: 0;
+  gap: 80px;
   padding: 20px 0;
   scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow-y: auto;
   position: relative;
 }
 
