@@ -395,6 +395,9 @@ p {
 .flags img {
   width: 145px;
   height: 120px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  justify-content: center;
 }
 
 .viet2, .viet3 { display: none; } /* hide mis-positioned images */
@@ -402,6 +405,7 @@ p {
 .viet2-crop {
   object-position: center 25%;
 }
+
 
 /* ─── Reveal animations ──────────────────────────────────── */
 .reveal {
