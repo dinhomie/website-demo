@@ -316,11 +316,14 @@ p {
 }
 
 /* ─── Scroll cards (experience) ──────────────────────────── */
-.container { padding-left: 40px; }
+.container { 
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
 
 .scroll-container {
   height: 200px;
-  overflow-x: auto;
   display: flex;
   gap: 0;
   padding: 20px 0;
